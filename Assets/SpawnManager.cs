@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    // 敵を生成するか
+    public bool isActive =false;
+
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemyPrefab;
     public float spawnIntarval;  // レベルアップで短く
@@ -15,20 +18,21 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float spawnMaxPosZ;
     private float spawnPosY = 0.5f;
 
-    void Start()
-    {
-    }
-
     void Update()
     {
-        // タイマー計測
-        spawnTimer += Time.deltaTime;
-        // 生成時間が経過したら
-        if(spawnTimer > spawnIntarval) {
-            // 敵を生成する
-            spawnEnemy();
-            // タイマー初期化
-            spawnTimer = 0f;
+        if (isActive) {
+
+            // タイマー計測
+            spawnTimer += Time.deltaTime;
+
+            // 生成時間が経過したら
+            if(spawnTimer > spawnIntarval) {
+
+                // 敵を生成する
+                spawnEnemy();
+                // タイマー初期化
+                spawnTimer = 0f;
+            }
         }
     }
 

@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     private float mouseDis = 0f;
     private Quaternion lookRot;
     public float playerRadSpeed;
+
+    [SerializeField] GameManager gameManager;
+
     // 発射制御に関する
     [SerializeField] private GameObject bullet;
     public float timeBetweenShoot;
@@ -104,6 +107,20 @@ public class Player : MonoBehaviour
             Instantiate(bullet, transform.position + transform.forward, transform.rotation);
             // タイマー初期化
             timerShoot = 0.0f;
+        }
+    }
+
+    /// <summary>
+    /// オブジェクトと衝突した時に実行
+    /// </summary>
+    /// <param name="other">衝突したオブジェクトのCollision</param>
+    void OnCollisionEnter(Collision other)
+    {
+        // 敵と衝突したとき
+        if (other.gameObject.tag == "Enemy"){
+            // ゲームオーバー画面を表示する
+            gameManager.GameOver();
+            this.gameObject.SetActive(false);
         }
     }
 
