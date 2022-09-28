@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private Rigidbody enemyRb;
+    public float enemySpeed;
+    private GameObject player;
+    private Transform playerTrans;
+
     void Start()
     {
-        
+        // プレイヤーのオブジェクトを取得 → Inspector上でできるならそっちの方が軽い
+        player = GameObject.Find("Player");
+
+        enemyRb = this.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        
+        // プレイヤー位置情報の取得
+        playerTrans = player.GetComponent<Transform>();
+        // プレイヤーの方を向く
+        this.transform.LookAt(playerTrans);
+        // 前方に進み続ける
+        enemyRb.velocity = transform.forward * enemySpeed * Time.deltaTime;
     }
 
     /// <summary>
