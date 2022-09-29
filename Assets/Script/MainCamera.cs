@@ -7,7 +7,7 @@ public class MainCamera : MonoBehaviour
     [SerializeField] GameObject player;
     Vector3 playerPos;
 
-    void Update()
+    void LateUpdate()
     {
         // 距離を保ってPlayerに追従
         this.transform.position += player.transform.position - playerPos;
