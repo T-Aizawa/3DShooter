@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] SpawnManager spawnManager;
     [SerializeField] Canvas gameStartUI;
     [SerializeField] Canvas gameOverUI;
+    [SerializeField] Canvas gameUI;
 
     [SerializeField] Vector3 playerIniPos = new Vector3(0f, 0.5f, 0f);
     
@@ -29,6 +30,9 @@ public class GameManager : MonoBehaviour
         // タイトル画面とゲームオーバー画面を非アクティブ状態に
         gameStartUI.gameObject.SetActive(false);
         gameOverUI.gameObject.SetActive(false);
+
+        // ゲーム中UIをアクティブ状態に
+        gameUI.gameObject.SetActive(true);
 
         // プレイヤーを開始地点に戻しアクティブ状態に
         player.transform.position = playerIniPos;
