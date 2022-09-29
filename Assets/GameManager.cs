@@ -49,5 +49,9 @@ public class GameManager : MonoBehaviour
 
         // 敵の生成を停止
         spawnManager.isActive = false;
+        // 残っている敵を消去する
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy")){
+            Destroy(enemy.gameObject);
+        }
     }
 }
