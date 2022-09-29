@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     private Rigidbody enemyRb;
     public float enemySpeed;
+    public AudioClip soundExplosion;
+
     private GameObject player;
     private Transform playerTrans;
 
@@ -35,6 +37,10 @@ public class Enemy : MonoBehaviour
     {
         // 衝突したのが弾のとき
         if (other.gameObject.tag == "Bullet"){
+
+            // その場に爆発音を鳴らすオブジェクトを一時的に生成
+            AudioSource.PlayClipAtPoint(soundExplosion, this.transform.position);
+
             Destroy(this.gameObject);
         }
     }
