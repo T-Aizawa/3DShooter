@@ -5,42 +5,37 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     // 敵を生成するか
-    public bool isActive =false;
+    private bool isSpawn = true;
 
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemyPrefab;
     public float spawnIntarval;  // レベルアップで短く
     public float notSpawnDistance; // レベルアップで短く
-    private float spawnTimer = 0f;
     [SerializeField] private float spawnMinPosX;
     [SerializeField] private float spawnMaxPosX;
     [SerializeField] private float spawnMinPosZ;
     [SerializeField] private float spawnMaxPosZ;
     private float spawnPosY = 0.5f;
 
+    private void OnEnable()
+    {
+        isSpawn = true;
+    }
     void Update()
     {
-        if (isActive) {
-
-            // タイマー計測
-            spawnTimer += Time.deltaTime;
-
-            // 生成時間が経過したら
-            if(spawnTimer > spawnIntarval) {
-
-                // 敵を生成する
-                spawnEnemy();
-                // タイマー初期化
-                spawnTimer = 0f;
-            }
+        if (isSpawn) {
+            // 敵を生成する
+            StartCoroutine(SpawnEnemy());
         }
     }
 
     /// <summary>
     /// 敵を生成する
     /// </summary>
-    void spawnEnemy()
+    IEnumerator SpawnEnemy()
     {
+        // 生成中は次の処理を止める
+        isSpawn = false;
         // プレイヤー位置情報の取得
         Transform playerTrans = player.GetComponent<Transform>();
 
@@ -49,8 +44,12 @@ public class SpawnManager : MonoBehaviour
         // 生成時の向きを取得
         Quaternion spawnRot = GetSpawnRotation(spawnPos, playerTrans);
 
+        // 指定の秒数待機する
+        yield return new WaitForSeconds(spawnIntarval);
         // 敵を生成する
         Instantiate(enemyPrefab, spawnPos, spawnRot);
+        // 生成再開
+        isSpawn = true;
     }
 
     /// <summary>

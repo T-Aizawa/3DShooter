@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     {
         // プレイヤーを非アクティブ状態にし、敵の生成を停止
         player.gameObject.SetActive(false);
-        spawnManager.isActive = false;
+        spawnManager.gameObject.SetActive(false);
 
         // タイトル画面を表示
         gameStartUI.gameObject.SetActive(true);
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);
 
         // 敵の生成を開始
-        spawnManager.isActive = true;
+        spawnManager.gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         gameOverUI.gameObject.SetActive(true);
 
         // 敵の生成を停止
-        spawnManager.isActive = false;
+        spawnManager.gameObject.SetActive(false);
         // 残っている敵を消去する
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy")){
             Destroy(enemy.gameObject);
