@@ -17,8 +17,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float spawnMaxPosZ;
     private float spawnPosY = 0.5f;
 
-    private void OnEnable()
+    void OnEnable()
     {
+        // アクティブ時に生成処理を動かすため
         isSpawn = true;
     }
     void Update()
