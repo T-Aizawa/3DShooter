@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySpeed: 100
-  soundExplosion: {fileID: 8300000, guid: 7e92d7ed8d34a4f76b671a5f123b4552, type: 3}
+  soundExplosion: {fileID: 8300000, guid: fc07d4f2b3ed94dfaaf1e87dbb0a031e, type: 3}
 --- !u!82 &-8460813781369324598
 AudioSource:
   m_ObjectHideFlags: 0
