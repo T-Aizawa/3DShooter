@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(false);
         spawnManager.gameObject.SetActive(false);
 
+        // ゲーム中UIを非表示
+        gameUI.gameObject.SetActive(false);
+
         // タイトル画面を表示
         gameStartUI.gameObject.SetActive(true);
     }
