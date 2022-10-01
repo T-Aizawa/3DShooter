@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Canvas gameStartUI;
     [SerializeField] Canvas gameOverUI;
     [SerializeField] Canvas gameUI;
+
+    [SerializeField] TextMeshProUGUI scoreText;
+    int score = 0;
+    int oldScore = 0;
 
     [SerializeField] Vector3 playerIniPos = new Vector3(0f, 0.5f, 0f);
     
@@ -22,11 +27,23 @@ public class GameManager : MonoBehaviour
         gameStartUI.gameObject.SetActive(true);
     }
 
+    private void Update()
+    {
+        // スコアが更新されたら
+        if (score != oldScore) {
+            scoreText.text = "SCORE " + score;
+            oldScore = score;
+        }
+    }
+
     /// <summary>
     /// ゲームスタート処理
     /// </summary>
     public void GameStart()
     {
+        // スコアの初期化
+        score = 0;
+
         // タイトル画面とゲームオーバー画面を非アクティブ状態に
         gameStartUI.gameObject.SetActive(false);
         gameOverUI.gameObject.SetActive(false);
@@ -57,5 +74,14 @@ public class GameManager : MonoBehaviour
         foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy")){
             Destroy(enemy.gameObject);
         }
+    }
+
+    /// <summary>
+    /// スコアを加算する
+    /// </summary>
+    /// <param name="addPoint">加算するスコア</param>
+    public void AddScore(int addPoint)
+    {
+        score += addPoint;
     }
 }

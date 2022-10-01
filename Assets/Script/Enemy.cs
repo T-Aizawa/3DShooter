@@ -7,14 +7,18 @@ public class Enemy : MonoBehaviour
     private Rigidbody enemyRb;
     public float enemySpeed;
     public AudioClip soundExplosion;
+    [SerializeField] int score;
 
     private GameObject player;
     private Transform playerTrans;
 
+    private GameObject gManager;
+
     void Start()
     {
-        // プレイヤーのオブジェクトを取得 → Inspector上でできるならそっちの方が軽い
+        // オブジェクトを取得 → Inspector上でできるならそっちの方が軽い
         player = GameObject.Find("Player");
+        gManager = GameObject.Find("GameManager");
 
         enemyRb = this.GetComponent<Rigidbody>();
     }
@@ -40,7 +44,7 @@ public class Enemy : MonoBehaviour
 
             // その場に爆発音を鳴らすオブジェクトを一時的に生成
             AudioSource.PlayClipAtPoint(soundExplosion, this.transform.position);
-
+            gManager.GetComponent<GameManager>().AddScore(score);
             Destroy(this.gameObject);
         }
     }
