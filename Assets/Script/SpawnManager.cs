@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    // 敵を生成するか
-    private bool isSpawn = true;
+    // 敵を生成中か
+    bool isSpawning;
 
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemyPrefab;
@@ -19,12 +19,12 @@ public class SpawnManager : MonoBehaviour
 
     void OnEnable()
     {
-        // アクティブ時に生成処理を動かすため
-        isSpawn = true;
+        // アクティブ時に生成処理を再開
+        isSpawning = false;
     }
     void Update()
     {
-        if (isSpawn) {
+        if (!isSpawning) {
             // 敵を生成する
             StartCoroutine(SpawnEnemy());
         }
@@ -36,7 +36,11 @@ public class SpawnManager : MonoBehaviour
     IEnumerator SpawnEnemy()
     {
         // 生成中は次の処理を止める
-        isSpawn = false;
+        isSpawning = true;
+
+        // 指定の秒数待機する
+        yield return new WaitForSeconds(spawnInterval);
+
         // プレイヤー位置情報の取得
         Transform playerTrans = player.GetComponent<Transform>();
 
@@ -45,12 +49,10 @@ public class SpawnManager : MonoBehaviour
         // 生成時の向きを取得
         Quaternion spawnRot = GetSpawnRotation(spawnPos, playerTrans);
 
-        // 指定の秒数待機する
-        yield return new WaitForSeconds(spawnInterval);
         // 敵を生成する
         Instantiate(enemyPrefab, spawnPos, spawnRot);
         // 生成再開
-        isSpawn = true;
+        isSpawning = false;
     }
 
     /// <summary>
