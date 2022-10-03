@@ -9,19 +9,19 @@ public class Player : MonoBehaviour
     [SerializeField] float playerInitialSpeed;
     [SerializeField] float increaseSpeed;
     
-    private Rigidbody playerRb;
-    private Vector3 moving;
-    private Plane plane;
-    private float mouseDis = 0f;
-    private Quaternion lookRot;
-    public float playerRadSpeed;
+    Rigidbody playerRb;
+    Vector3 moving;
+    Plane plane;
+    float mouseDis = 0f;
+    Quaternion lookRot;
+    [SerializeField] float playerRadSpeed;
 
     [SerializeField] GameManager gameManager;
 
     // 発射制御に関する
-    [SerializeField] private GameObject bullet;
-    public float timeBetweenShoot;
-    private float timerShoot;
+    [SerializeField] GameObject bullet;
+    [SerializeField] float shootInterval;
+    bool isShooting;
 
     void Start()
     {
@@ -31,9 +31,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // タイマーの時間を追加
-        timerShoot += Time.deltaTime;
-
         // 方向制御
         RotateControll();
         Rotate();
@@ -43,8 +40,8 @@ public class Player : MonoBehaviour
         Move();  
 
         // マウスの左クリック押下で弾を発射する
-        if (Input.GetMouseButton(0)) {
-            Shoot();    
+        if (Input.GetMouseButton(0) && !isShooting) {
+            StartCoroutine(Shoot());    
         }
     }
 
@@ -104,14 +101,12 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 弾を発射する
     /// </summary>
-    void Shoot()
+    IEnumerator Shoot()
     {
-        // クールタイムが経過していたら発射する
-        if (timerShoot > timeBetweenShoot) {
-            Instantiate(bullet, transform.position + transform.forward, transform.rotation);
-            // タイマー初期化
-            timerShoot = 0.0f;
-        }
+        isShooting = true;
+        Instantiate(bullet, transform.position + transform.forward, transform.rotation);
+        yield return new WaitForSeconds(shootInterval);
+        isShooting = false;
     }
 
     /// <summary>

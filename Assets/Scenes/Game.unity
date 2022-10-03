@@ -1472,7 +1472,7 @@ MonoBehaviour:
   playerRadSpeed: 2
   gameManager: {fileID: 2000774540}
   bullet: {fileID: 4283025552690579512, guid: 7e0cd602195ae411396943a9c9dfb45a, type: 3}
-  timeBetweenShoot: 1
+  shootInterval: 1
 --- !u!54 &1174741041
 Rigidbody:
   m_ObjectHideFlags: 0
