@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f036d25d4720c4b87a36091833c9efa7, type: 3}
-  m_Name: CUBE
+  m_Name: FAST
   m_EditorClassIdentifier: 
-  enemyName: CUBE
+  enemyName: FAST
   maxHP: 1
-  speed: 100
-  radSpeed: 0.3
+  speed: 200
+  radSpeed: 5
   shootInterval: 0
-  score: 10
+  score: 20
   enableMoving: 1
   enableShooting: 0
   enableTurning: 1
