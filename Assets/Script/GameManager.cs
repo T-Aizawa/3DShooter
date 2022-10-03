@@ -15,6 +15,12 @@ public class GameManager : MonoBehaviour
     int score = 0;
     int oldScore = 0;
 
+    int level = 1;
+    int oldLevel = 1;
+    [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] int maxLevel;
+    [SerializeField] int[] thresholdScores = new int[5];
+
     [SerializeField] Vector3 playerIniPos = new Vector3(0f, 0.5f, 0f);
     
     void Start()
@@ -32,11 +38,36 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // スコアが更新されたら
+        // スコアが更新されたとき
         if (score != oldScore) {
             scoreText.text = "SCORE " + score;
             oldScore = score;
+
+            // レベルアップするか確認
+            if (level < maxLevel && SetLevel()) {
+                if (level == maxLevel) {
+                    levelText.text = "LEVEL MAX";
+                } else {
+                    levelText.text = "LEVEL " + level;
+                }
+                oldLevel = level;
+            }
         }
+    }
+
+    /// <summary>
+    /// スコアに対してのレベルを取得する
+    /// </summary>
+    private bool SetLevel()
+    {
+        for (var i = 0; i < thresholdScores.Length; i++) {
+            if (score >= thresholdScores[i]) {
+                level = i + 1;
+            } else {
+                break;
+            }
+        }
+        return level != oldLevel;
     }
 
     /// <summary>
@@ -44,8 +75,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void GameStart()
     {
-        // スコアの初期化
+        // スコアなどの初期化
         score = 0;
+        level = 1;
 
         // タイトル画面とゲームオーバー画面を非アクティブ状態に
         gameStartUI.gameObject.SetActive(false);
