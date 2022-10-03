@@ -9,13 +9,13 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemyPrefab;
-    public float spawnInterval;  // レベルアップで短く
-    public float notSpawnDistance; // レベルアップで短く
-    [SerializeField] private float spawnMinPosX;
-    [SerializeField] private float spawnMaxPosX;
-    [SerializeField] private float spawnMinPosZ;
-    [SerializeField] private float spawnMaxPosZ;
-    private float spawnPosY = 0.5f;
+    [SerializeField] float spawnInterval;  // レベルアップで短く
+    [SerializeField] float notSpawnDistance; // レベルアップで短く
+    [SerializeField] float spawnMinPosX;
+    [SerializeField] float spawnMaxPosX;
+    [SerializeField] float spawnMinPosZ;
+    [SerializeField] float spawnMaxPosZ;
+    float spawnPosY = 0.5f;
 
     void OnEnable()
     {
