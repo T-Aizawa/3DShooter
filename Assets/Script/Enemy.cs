@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Rigidbody enemyRb;
+    Rigidbody enemyRb;
     [SerializeField] EnemyData data;
     [SerializeField] int enemyHp;
     [SerializeField] float enemySpeed;
 
     Quaternion lookRot;
     bool isShooting = false;
-    public AudioClip soundExplosion;
+    [SerializeField] AudioClip soundExplosion;
 
-    private GameObject player;
-    private Transform playerTrans;
+    GameObject player;
+    Transform playerTrans;
 
-    [SerializeField] private GameObject bullet;
+    [SerializeField] GameObject bullet;
 
-    private GameObject gManager;
+    GameObject gManager;
 
     void Start()
     {

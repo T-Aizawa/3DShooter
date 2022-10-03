@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] int maxLevel;
     [SerializeField] int[] thresholdScores = new int[5];
+
     AudioSource audioSource;
     [SerializeField] AudioClip soundLevelUp;
 

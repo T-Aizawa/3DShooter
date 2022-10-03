@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] GameManager gameManager;
+
     // プレイヤー制御に関する
     [SerializeField] float playerSpeed;
     [SerializeField] float playerInitialSpeed;
@@ -15,8 +17,6 @@ public class Player : MonoBehaviour
     float mouseDis = 0f;
     Quaternion lookRot;
     [SerializeField] float playerRadSpeed;
-
-    [SerializeField] GameManager gameManager;
 
     // 発射制御に関する
     [SerializeField] GameObject bullet;

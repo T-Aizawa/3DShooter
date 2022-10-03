@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Rigidbody bulletRb;
-    public float bulletSpeed;
-    public float lifetime;
+    Rigidbody bulletRb;
+    [SerializeField] float bulletSpeed;
+    [SerializeField] float lifetime;
 
     void Start()
     {
