@@ -128,9 +128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 287757ca854c448b2bc4ee4ca6a50096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpeed: 100
+  data: {fileID: 11400000, guid: 34379931550aa4acd9f856d21664c7f4, type: 2}
+  enemyHp: 0
+  enemySpeed: 0
   soundExplosion: {fileID: 8300000, guid: fc07d4f2b3ed94dfaaf1e87dbb0a031e, type: 3}
-  score: 10
+  bullet: {fileID: 4283025552690579512, guid: 7e0cd602195ae411396943a9c9dfb45a, type: 3}
 --- !u!82 &-8460813781369324598
 AudioSource:
   m_ObjectHideFlags: 0
