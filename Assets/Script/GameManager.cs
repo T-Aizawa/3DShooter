@@ -20,9 +20,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] int maxLevel;
     [SerializeField] int[] thresholdScores = new int[5];
+    AudioSource audioSource;
+    [SerializeField] AudioClip soundLevelUp;
 
     [SerializeField] Vector3 playerIniPos = new Vector3(0f, 0.5f, 0f);
     
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void Start()
     {
         // プレイヤーを非アクティブ状態にし、敵の生成を停止
@@ -52,7 +59,9 @@ public class GameManager : MonoBehaviour
                     levelText.text = "LEVEL " + level;
                 }
 
-                // プレイヤー速度の増加
+                // レベルアップ音をならす
+                audioSource.PlayOneShot(soundLevelUp, 0.5f);
+                // プレイヤー速度の計算
                 player.calcPlayerSpeed(level);
 
                 oldLevel = level;
