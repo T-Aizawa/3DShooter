@@ -5,7 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // プレイヤー制御に関する
-    public float playerSpeed;
+    [SerializeField] float playerSpeed;
+    [SerializeField] float playerInitialSpeed;
+    [SerializeField] float increaseSpeed;
+    
     private Rigidbody playerRb;
     private Vector3 moving;
     private Plane plane;
@@ -23,6 +26,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerRb = this.GetComponent<Rigidbody>();
+        playerSpeed = playerInitialSpeed;
     }
 
     void Update()
@@ -124,4 +128,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// プレイヤーの速さを算出
+    /// </summary>
+    /// <param name="level">現在のレベル</param>
+    public void calcPlayerSpeed(int level)
+    {
+        playerSpeed = playerInitialSpeed + increaseSpeed * (level - 1);
+    }
 }

@@ -45,11 +45,16 @@ public class GameManager : MonoBehaviour
 
             // レベルアップするか確認
             if (level < maxLevel && CheckLevelUp()) {
+                // レベル表示の更新
                 if (level == maxLevel) {
                     levelText.text = "LEVEL MAX";
                 } else {
                     levelText.text = "LEVEL " + level;
                 }
+
+                // プレイヤー速度の増加
+                player.calcPlayerSpeed(level);
+
                 oldLevel = level;
             }
         }

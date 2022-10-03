@@ -1466,7 +1466,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a7c85ea91324596bb9bc40284fe9a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 200
+  playerSpeed: 0
+  playerInitialSpeed: 150
+  increaseSpeed: 50
   playerRadSpeed: 2
   gameManager: {fileID: 2000774540}
   bullet: {fileID: 4283025552690579512, guid: 7e0cd602195ae411396943a9c9dfb45a, type: 3}
