@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] GameObject player;
     [SerializeField] GameObject enemyPrefab;
-    public float spawnIntarval;  // レベルアップで短く
+    public float spawnInterval;  // レベルアップで短く
     public float notSpawnDistance; // レベルアップで短く
     [SerializeField] private float spawnMinPosX;
     [SerializeField] private float spawnMaxPosX;
@@ -46,7 +46,7 @@ public class SpawnManager : MonoBehaviour
         Quaternion spawnRot = GetSpawnRotation(spawnPos, playerTrans);
 
         // 指定の秒数待機する
-        yield return new WaitForSeconds(spawnIntarval);
+        yield return new WaitForSeconds(spawnInterval);
         // 敵を生成する
         Instantiate(enemyPrefab, spawnPos, spawnRot);
         // 生成再開
