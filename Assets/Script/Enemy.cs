@@ -93,13 +93,18 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// 弾を撃つ
     /// </summary>
-    /// <returns></returns>
     IEnumerator Shoot()
     {
         // 射撃クールタイム中
         isShooting = true;
+
+        // 弾を指定していない場合エラーログをはいてクールタイムのまま処理を抜ける
+        if (bullet == null) {
+            Debug.Log("撃つ弾を指定して下さい");
+            yield break;
+        }
         // 弾を生成
         Instantiate(bullet, transform.position + transform.forward, transform.rotation);
         yield return new WaitForSeconds(data.ShootInterval);
