@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
             oldScore = score;
 
             // レベルアップするか確認
-            if (level < maxLevel && SetLevel()) {
+            if (level < maxLevel && CheckLevelUp()) {
                 if (level == maxLevel) {
                     levelText.text = "LEVEL MAX";
                 } else {
@@ -56,10 +56,11 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// スコアに対してのレベルを取得する
+    /// レベルアップを判定する
     /// </summary>
-    private bool SetLevel()
+    private bool CheckLevelUp()
     {
+        // スコアに対してのレベルを取得
         for (var i = 0; i < thresholdScores.Length; i++) {
             if (score >= thresholdScores[i]) {
                 level = i + 1;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+        // レベルアップしているかを返す
         return level != oldLevel;
     }
 
