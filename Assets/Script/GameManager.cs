@@ -59,11 +59,12 @@ public class GameManager : MonoBehaviour
                 } else {
                     levelText.text = "LEVEL " + level;
                 }
-
                 // レベルアップ音をならす
                 audioSource.PlayOneShot(soundLevelUp, 0.5f);
                 // プレイヤー速度の計算
                 player.calcPlayerSpeed(level);
+                // 敵生成制御にレベルを設定
+                spawnManager.SetLevel(level);
 
                 oldLevel = level;
             }

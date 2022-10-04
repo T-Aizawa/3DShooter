@@ -8,7 +8,9 @@ public class SpawnManager : MonoBehaviour
     bool isSpawning;
 
     [SerializeField] GameObject player;
-    [SerializeField] GameObject enemyPrefab;
+    [SerializeField] GameObject[] enemyPrefabs;
+    [SerializeField] RatioData[] ratioDataArray;
+
     [SerializeField] float spawnInterval;  // レベルアップで短く
     [SerializeField] float notSpawnDistance; // レベルアップで短く
     [SerializeField] float spawnMinPosX;
@@ -16,12 +18,19 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] float spawnMinPosZ;
     [SerializeField] float spawnMaxPosZ;
     float spawnPosY = 0.5f;
+    int spawnLevel = 1;
+    int oldSpawnLevel = 0;
+    float totalRatioWeight;
+    GameObject spawnEnemy;
+    RatioData spawnRatio;
 
     void OnEnable()
     {
         // アクティブ時に生成処理を再開
         isSpawning = false;
+        oldSpawnLevel = 0;
     }
+
     void Update()
     {
         if (!isSpawning) {
@@ -41,18 +50,59 @@ public class SpawnManager : MonoBehaviour
         // 指定の秒数待機する
         yield return new WaitForSeconds(spawnInterval);
 
+        // 生成する敵の種類を取得
+        spawnEnemy = GetSpawnEnemy();
+
         // プレイヤー位置情報の取得
         Transform playerTrans = player.GetComponent<Transform>();
-
         // 生成する座標を取得
         Vector3 spawnPos = GetSpawnPosition(playerTrans);
         // 生成時の向きを取得
         Quaternion spawnRot = GetSpawnRotation(spawnPos, playerTrans);
 
         // 敵を生成する
-        Instantiate(enemyPrefab, spawnPos, spawnRot);
+        Instantiate(spawnEnemy, spawnPos, spawnRot);
         // 生成再開
         isSpawning = false;
+    }
+
+    /// <summary>
+    /// 生成する敵を抽選する
+    /// </summary>
+    /// <returns>敵のプレハブ</returns>
+    GameObject GetSpawnEnemy()
+    {
+        // レベルが更新されている時
+        if (spawnLevel != oldSpawnLevel){
+            totalRatioWeight = 0;
+            // 抽選テーブルを取得
+            spawnRatio = ratioDataArray[spawnLevel - 1];
+            // 各出現率の和を取得
+            for (var i = 0; i < spawnRatio.Ratios.Length; i++) {
+                totalRatioWeight += spawnRatio.Ratios[i];
+            }
+            oldSpawnLevel = spawnLevel;
+        }
+        var random = Random.Range(0, totalRatioWeight);
+        var currentWeight = 0f;
+
+        Debug.Log(totalRatioWeight);
+        Debug.Log(spawnRatio.Ratios.Length);
+        Debug.Log(spawnRatio.Ratios[0]);
+
+        for (var i = 0; i < spawnRatio.Ratios.Length; i++)
+        {
+            // 現在要素までの重みの総和を求める
+            currentWeight += spawnRatio.Ratios[i];
+
+            // 乱数値が現在要素の範囲内かチェック
+            if (random < currentWeight)
+            {
+                return enemyPrefabs[i];
+            }
+        }
+        // 乱数値が重みの総和以上なら末尾要素とする
+        return enemyPrefabs[spawnRatio.Ratios.Length - 1];
     }
 
     /// <summary>
@@ -87,5 +137,13 @@ public class SpawnManager : MonoBehaviour
     private Quaternion GetSpawnRotation(Vector3 spawnPos, Transform playerTrans)
     {
         return Quaternion.LookRotation(playerTrans.position - spawnPos);
+    }
+
+    /// <summary>
+    /// スポナーにレベルを設定する
+    /// </summary>
+    /// <param name="level">現在のレベル</param>
+    public void SetLevel(int level){
+        spawnLevel = level;
     }
 }
