@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] int maxLevel;
     [SerializeField] int[] thresholdScores = new int[5];
 
+    [SerializeField] TextMeshProUGUI levelUpMsg;
+
     AudioSource audioSource;
     [SerializeField] AudioClip soundLevelUp;
 
@@ -59,8 +61,8 @@ public class GameManager : MonoBehaviour
                 } else {
                     levelText.text = "LEVEL " + level;
                 }
-                // レベルアップ音をならす
-                if(level != 1) audioSource.PlayOneShot(soundLevelUp, 0.5f);
+                // レベルアップの演出
+                if(level != 1) StartCoroutine(EffectLevelUp());
                 // プレイヤー速度の計算
                 player.calcPlayerSpeed(level);
                 // 敵生成制御にレベルを設定
@@ -86,6 +88,19 @@ public class GameManager : MonoBehaviour
         }
         // レベルアップしているかを返す
         return level != oldLevel;
+    }
+
+    /// <summary>
+    /// レベルアップ時の表現
+    /// </summary>
+    IEnumerator EffectLevelUp()
+    {
+        // 音をならす
+        audioSource.PlayOneShot(soundLevelUp, 0.5f);
+        // メッセージを表示
+        levelUpMsg.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        levelUpMsg.gameObject.SetActive(false);
     }
 
     /// <summary>
