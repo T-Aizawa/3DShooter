@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
 
     void OnEnable()
     {
+        playerSpeed = playerInitialSpeed;
         // 中断された発射処理を再開可能に
         isShooting = false;
     }
