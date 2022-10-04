@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyData", menuName = "MyScriptable/Create EnemyData")]
+[CreateAssetMenu(fileName = "EnemyData", menuName = "MyScriptable/EnemyData")]
 public class EnemyData : ScriptableObject
 {
     // status
