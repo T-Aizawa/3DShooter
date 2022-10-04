@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: BIG
   maxHP: 5
   speed: 80
-  radSpeed: 0.1
+  radSpeed: 0.5
   shootInterval: 0
   score: 50
   enableMoving: 1

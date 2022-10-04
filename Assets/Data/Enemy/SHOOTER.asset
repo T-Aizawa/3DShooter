@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHP: 3
   speed: 0
   radSpeed: 3
-  shootInterval: 3
+  shootInterval: 2
   score: 50
   enableMoving: 0
   enableShooting: 1

@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: CUBE
   maxHP: 1
   speed: 100
-  radSpeed: 0.3
+  radSpeed: 2
   shootInterval: 0
   score: 10
   enableMoving: 1
