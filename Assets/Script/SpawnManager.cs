@@ -86,10 +86,6 @@ public class SpawnManager : MonoBehaviour
         var random = Random.Range(0, totalRatioWeight);
         var currentWeight = 0f;
 
-        Debug.Log(totalRatioWeight);
-        Debug.Log(spawnRatio.Ratios.Length);
-        Debug.Log(spawnRatio.Ratios[0]);
-
         for (var i = 0; i < spawnRatio.Ratios.Length; i++)
         {
             // 現在要素までの重みの総和を求める
